@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             line-height: 1.6;
-            scroll-behavior: smooth; /* Enables smooth scrolling */
+            scroll-behavior: smooth;
         }
 
         header {
@@ -21,20 +21,13 @@
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             position: relative;
-            animation: fadeIn 2s ease-out;
         }
 
         h1 {
             margin: 0;
             color: white;
             font-size: 2.5em;
-            animation: slideInFromLeft 1.5s ease-out;
-            line-height: 1.0; /* Reduced line spacing */
-        }
-
-        h1 span {
-            display: block;
-            margin-bottom: 0; /* Removes extra space between lines */
+            line-height: 1.0;
         }
 
         .profile-img {
@@ -42,116 +35,7 @@
             height: 150px;
             border-radius: 50%;
             margin-top: 10px;
-            animation: fadeIn 2s ease-out;
-        }
-
-        p {
-            font-size: 1.2em;
-            color: #ccc;
-            animation: fadeIn 2s ease-out;
-        }
-
-        .three-dots-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 30px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: white;
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .three-dots-btn:hover {
-            transform: rotate(90deg);
-        }
-
-        .about-me-box {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 300px;
-            border-radius: 8px;
-            text-align: center;
-            z-index: 100;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-
-        .about-me-box h2 {
-            margin-bottom: 10px;
-            color: #333;
-            animation: fadeInUp 1.5s ease-out;
-        }
-
-        .about-me-box p {
-            font-size: 16px;
-            color: #555;
-            animation: fadeInUp 2s ease-out;
-        }
-
-        .close-btn {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            margin-top: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        .close-btn:hover {
-            background-color: #2980b9;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideInFromLeft {
-            from {
-                transform: translateX(-100%);
-            }
-            to {
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        h2 {
-            color: #2c3e50;
-            font-size: 28px;
-            font-weight: bold;
-            text-transform: uppercase;
-            text-align: center;
-            letter-spacing: 1px;
-            border-bottom: 3px solid #3498db;
-            display: inline-block;
-            padding-bottom: 5px;
-            margin-bottom: 20px;
-            animation: fadeInUp 2s ease-out;
+            border: 3px solid white;
         }
 
         section {
@@ -160,46 +44,6 @@
             background-color: #d3e7f1;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 2s ease-out;
-            opacity: 0;
-            transition: opacity 1s ease-in;
-        }
-
-        .skills-box, .project-section, .contact-section, .cad-design-section {
-            background-color: #d3e7f1;
-            color: black;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 2s ease-out;
-        }
-
-        .project-card {
-            background-color: #ffffff;
-            color: black;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s ease, background-color 0.2s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            background-color: #b0e0e6;
-        }
-
-        .project-card h3 {
-            font-size: 1.5em;
-            margin: 0;
-            padding-bottom: 5px;
-            text-transform: uppercase;
-        }
-
-        .project-card p {
-            font-size: 1em;
-            line-height: 1.5;
-            color: black;
         }
 
         .contact-section a {
@@ -216,88 +60,23 @@
             background-color: #333;
             color: white;
             text-align: center;
-            padding: 5px 0;
+            padding: 10px;
             font-size: 14px;
             position: fixed;
             bottom: 0;
             width: 100%;
-        }
-
-        .cad-design-section p {
-            color: black;
-        }
-
-        .cad-design-section a {
-            color: #3498db;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .cad-design-section a:hover {
-            text-decoration: underline;
-        }
-
-        /* Contact section labels (Email, LinkedIn, GitHub, WhatsApp) in black */
-        .contact-section p {
-            font-size: 1.2em;
-            color: black;
-        }
-
-        .contact-section .email a,
-        .contact-section .linkedin a,
-        .contact-section .github a,
-        .contact-section .whatsapp a {
-            color: #3498db;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .contact-section .email a:hover,
-        .contact-section .linkedin a:hover,
-        .contact-section .github a:hover,
-        .contact-section .whatsapp a:hover {
-            text-decoration: underline;
-        }
-
-        /* Spacing adjustments */
-        .contact-section {
-            margin-bottom: 50px; /* Adds space below the Contact section */
-        }
-
-        .footer {
-            margin-top: 50px; /* Ensure the footer stays at the bottom of the page */
-        }
-
-        /* Animation trigger when section is in viewport */
-        .section-visible {
-            opacity: 1 !important;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>
-            <span>Hi, I am</span><br>
-            <span>Kalaiselvan R</span>
-        </h1>
-        <img src="profile.jpg" alt="Profile Picture" class="profile-img">
-        <p>Fresher Design Engineer | BE Mechanical Engineering | Enthusiastic About Applying Engineering Principles to Real-World Projects</p>
-        <button class="three-dots-btn" onclick="toggleAboutMe()">&#x2022;&#x2022;&#x2022;</button>
+        <h1>Hi, I am Kalaiselvan R</h1>
+        <img src="profile.jpg" alt="Profile Picture" class="profile-img">  <!-- Ensure "profile.jpg" exists in your repo -->
+        <p>Fresher Design Engineer | BE Mechanical Engineering | Enthusiastic About Engineering</p>
     </header>
 
-    <div class="about-me-box" id="aboutMeBox">
-        <h2>About Me</h2>
-        <p><strong>Name:</strong> Kalaiselvan R</p>
-        <p><strong>Age:</strong> 20</p>
-        <p><strong>Degree & Course:</strong> BE & Mechanical Engineering</p>
-        <p><strong>Date of Birth:</strong> 19/11/2004</p>
-        <p><strong>City:</strong> Namakkal</p>
-        <p><strong>Pin Code:</strong> 637013</p>
-        <button class="close-btn" onclick="toggleAboutMe()">Close</button>
-    </div>
-
-    <section class="skills-box">
+    <section>
         <h2>Skills & Tools</h2>
         <ul>
             <li>SolidWorks</li>
@@ -308,67 +87,17 @@
         </ul>
     </section>
 
-    <section class="project-section">
-        <h2>Projects</h2>
-        <div class="project-card">
-            <h3>Mechanical Part Design</h3>
-            <p>A 3D model created using SolidWorks for a custom mechanical part.</p>
-        </div>
-        <div class="project-card">
-            <h3>Assembly of Gearbox</h3>
-            <p>A complete gearbox assembly designed using CATIA V5.</p>
-        </div>
-        <div class="project-card">
-            <h3>Mechanism Design</h3>
-            <p>A design of a mechanical system using Unigraphics NX for simulation.</p>
-        </div>
-    </section>
-
-    <section class="cad-design-section">
-        <h2>CAD Design Files</h2>
-        <p>Click below to view my CAD designs:</p>
-        <a href="design-files.html" target="_blank">View Design</a>
-    </section>
-
     <section class="contact-section">
         <h2>Contact</h2>
-        <p class="email">Email: <a href="mailto:mechkalai2004@gmail.com">mechkalai2004@gmail.com</a></p>
-        <p class="linkedin">LinkedIn: <a href="https://www.linkedin.com/in/kalaiselvanr191120" target="_blank">linkedin.com/in/kalaiselvanr191120</a></p>
-        <p class="github">GitHub: <a href="https://github.com/kalaiselvanr" target="_blank">github.com/kalaiselvanr</a></p>
-        <p class="whatsapp">WhatsApp: <a href="https://wa.me/8110925400" target="_blank">Message Me</a></p>
+        <p>Email: <a href="mailto:mechkalai2004@gmail.com">mechkalai2004@gmail.com</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/kalaiselvanr191120" target="_blank">linkedin.com/in/kalaiselvanr191120</a></p>
+        <p>GitHub: <a href="https://github.com/kalaiselvanr" target="_blank">github.com/kalaiselvanr</a></p>
+        <p>WhatsApp: <a href="https://wa.me/8110925400" target="_blank">Message Me</a></p>
     </section>
 
     <footer>
         <p>&copy; 2025 Kalaiselvan R | All Rights Reserved</p>
     </footer>
-
-    <script>
-        // Intersection Observer for scroll animations
-        const sections = document.querySelectorAll('section');
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.3
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('section-visible');
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-
-        function toggleAboutMe() {
-            const aboutMeBox = document.getElementById('aboutMeBox');
-            aboutMeBox.style.display = (aboutMeBox.style.display === 'block') ? 'none' : 'block';
-            aboutMeBox.style.opacity = (aboutMeBox.style.display === 'block') ? '1' : '0';
-        }
-    </script>
 
 </body>
 </html>

@@ -38,11 +38,13 @@
         }
 
         .portfolio-photo {
-    width: 100%; /* Make it responsive */
-    max-width: 500px; /* Set a maximum size */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 10px; /* Add rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+            width: 100%; /* Makes the image responsive */
+            max-width: 500px; /* Limits the maximum width */
+            height: auto; /* Maintains aspect ratio */
+            border-radius: 10px; /* Adds rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+            display: block; /* Ensures it is displayed as a block element */
+            margin: 0 auto; /* Centers the image horizontally */
         }
 
         p {
@@ -281,7 +283,7 @@
             <span>Hi, I am</span><br>
             <span>Kalaiselvan R</span>
         </h1>
-        <img src="https://image.jpg.com/image.jpg" alt="image" class="portfolio-photo">
+        <img src="Image.jpg" alt="Portfolio Image" class="portfolio-photo">
         <p>Fresher Design Engineer | BE Mechanical Engineering | Enthusiastic About Applying Engineering Principles to Real-World Projects</p>
         <button class="three-dots-btn" onclick="toggleAboutMe()">&#x2022;&#x2022;&#x2022;</button>
     </header>

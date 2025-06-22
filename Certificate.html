@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Certificates</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      animation: fadeIn 1s ease-out;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      animation: slideIn 1s ease-out;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    main {
+      flex-grow: 1;
+      padding: 20px;
+      animation: fadeIn 2s ease-out;
+    }
+
+    .certificate-box {
+      background-color: #d3e7f1;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+      animation: slideIn 1s ease-out;
+    }
+
+    .certificate-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .certificate-item {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      width: 200px;
+      transition: transform 0.3s ease;
+    }
+
+    .certificate-item:hover {
+      transform: scale(1.05);
+    }
+
+    .certificate-img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    .certificate-link {
+      margin-top: 10px;
+      display: block;
+      font-weight: bold;
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    .certificate-link:hover {
+      text-decoration: underline;
+      color: #2980b9;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 14px;
+      width: 100%;
+      margin-top: auto;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-100px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>My Certificates</h1>
+  </header>
+
+  <main>
+    <div class="certificate-box">
+      <h2>Certificates Preview</h2>
+      <div class="certificate-grid" id="certificate-grid">
+        <!-- Certificate items will be loaded here -->
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Kalaiselvan R | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    const folderId = "1IgEieJrkxNrXDDfwGkqM8O-zz1trWBAY"; // your folder ID
+    const apiKey = "AIzaSyAhYxOiaiz363V7EZrU9O3lc5YURcwOx6o";
+
+    const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&orderBy=createdTime desc&fields=files(id,name,mimeType)&key=${apiKey}`;
+
+    async function loadCertificates() {
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        const grid = document.getElementById("certificate-grid");
+
+        if (!data.files || data.files.length === 0) {
+          grid.innerHTML = "<p>No certificates found.</p>";
+          return;
+        }
+
+        data.files.forEach(file => {
+          const fileName = file.name.toLowerCase();
+          const isCert = fileName.includes("cert") || fileName.includes("certificate");
+          const isImage = file.mimeType.startsWith("image/");
+          const isPDF = file.mimeType === "application/pdf";
+
+          if (isCert && (isImage || isPDF)) {
+            const item = document.createElement("div");
+            item.className = "certificate-item";
+
+            if (isImage) {
+              const img = document.createElement("img");
+              img.className = "certificate-img";
+              img.src = `https://drive.google.com/uc?id=${file.id}`;
+              img.alt = file.name;
+              item.appendChild(img);
+            }
+
+            const link = document.createElement("a");
+            link.className = "certificate-link";
+            link.href = `https://drive.google.com/file/d/${file.id}/view`;
+            link.textContent = file.name;
+            link.target = "_blank";
+            item.appendChild(link);
+
+            grid.appendChild(item);
+          }
+        });
+      } catch (err) {
+        console.error("Error loading certificates:", err);
+      }
+    }
+
+    loadCertificates();
+  </script>
+
+</body>
+</html>

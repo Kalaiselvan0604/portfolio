@@ -289,9 +289,8 @@
     <div class="about-me-box" id="aboutMeBox">
         <h2>About Me</h2>
         <p><strong>Name:</strong> Kalaiselvan R</p>
-        <p><strong>Age:</strong> 21</p>
+        <p><strong>Born:</strong> 19 Nov 2004 (<span id="age"></span> years old)</p>
         <p><strong>Degree & Course:</strong> BE & Mechanical Engineering</p>
-        <p><strong>Date of Birth:</strong> 19/11/2004</p>
         <p><strong>City:</strong> Namakkal</p>
         <p><strong>Pin Code:</strong> 637013</p>
         <a href="https://drive.google.com/file/d/1KIlEpS-LwRpruJkDRrjqKQauyR14TQAY/view" target="_blank" style="background-color:#3498db;color:white;padding:10px 20px;border:none;border-radius:5px;text-decoration:none;font-weight:bold;display:inline-block;margin-top:10px;">📄 View Resume</a>
@@ -378,6 +377,23 @@
             aboutMeBox.style.opacity = (aboutMeBox.style.display === 'block') ? '1' : '0';
         }
     </script>
+    
+<script>
+  // Set your Date of Birth
+  const dob = new Date("2004-11-19"); // 19 November 2004
 
+  function calculateAge(birthDate) {
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  }
+
+  // Display age in span with id="age"
+  document.getElementById("age").textContent = calculateAge(dob);
+</script>
 </body>
 </html>

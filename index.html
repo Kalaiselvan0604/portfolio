@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
     <style>
+        .typewriter {
+  display: inline-block;
+  font-weight: bold;
+  color: #00ffff;
+  border-right: 2px solid #00ffff;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: blinkCursor 0.7s infinite;
+}
+
+@keyframes blinkCursor {
+  0% { border-color: transparent; }
+  50% { border-color: #00ffff; }
+  100% { border-color: transparent; }
+}
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -276,14 +291,29 @@
 </head>
 <body>
 
-    <header>
-        <h1>
-            <span>Hello, I am</span><br>
-            <span>Kalaiselvan R</span>
-        </h1>
-        <img src="Image.jpg" alt="Portfolio Image" class="portfolio-photo">
-        <p>Fresher Design Engineer | BE Mechanical Engineering | Enthusiastic About Applying Engineering Principles to Real-World Projects</p>
-        <button class="three-dots-btn" onclick="toggleAboutMe()">&#x2022;&#x2022;&#x2022;</button>
+    <header style="padding: 30px;">
+  <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap;">
+    
+    <!-- Profile Image -->
+    <div style="flex: 1; text-align: center;">
+      <img src="Image.jpg" alt="Portfolio Image" class="portfolio-photo" style="width: 150px; height: 150px; border-radius: 80px;">
+    </div>
+
+    <!-- Text Content -->
+    <div style="flex: 2; padding: 10px; text-align: left;">
+      <h1 style="font-size: 1.5em; line-height: 1.5; color: white;">
+        <div>Hello, I am</div>
+        <div>Kalaiselvan R</div>
+        <div>I'm <span class="typewriter" id="typewriter-text"></span></div>
+      </h1>
+      <p style="font-size: 1.1em; color: #ccc;">
+        Fresher Design Engineer | BE Mechanical Engineering | Enthusiastic About Applying Engineering Principles to Real-World Projects
+      </p>
+    </div>
+  </div>
+
+  <!-- Three Dots Button -->
+  <button class="three-dots-btn" onclick="toggleAboutMe()">&#x2022;&#x2022;&#x2022;</button>
     </header>
 
     <div class="about-me-box" id="aboutMeBox">
@@ -394,6 +424,40 @@
 
   // Display age in span with id="age"
   document.getElementById("age").textContent = calculateAge(dob);
+</script>
+    <script>
+  const roles = ["Designer", "CAD Specialist"];
+  let index = 0;
+  let charIndex = 0;
+  let currentRole = "";
+  const speed = 100;
+  const eraseDelay = 1500;
+  const typewriter = document.getElementById("typewriter-text");
+
+  function type() {
+    if (charIndex < roles[index].length) {
+      currentRole += roles[index].charAt(charIndex);
+      typewriter.textContent = currentRole;
+      charIndex++;
+      setTimeout(type, speed);
+    } else {
+      setTimeout(erase, eraseDelay);
+    }
+  }
+
+  function erase() {
+    if (charIndex > 0) {
+      currentRole = currentRole.slice(0, -1);
+      typewriter.textContent = currentRole;
+      charIndex--;
+      setTimeout(erase, speed / 2);
+    } else {
+      index = (index + 1) % roles.length;
+      setTimeout(type, speed);
+    }
+  }
+
+  type();
 </script>
 </body>
 </html>

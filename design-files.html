@@ -3,26 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Design Gallery - Photos & Videos</title>
+<title>Design Gallery - Photos, Videos & PDFs</title>
 <style>
     body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; }
     header { background: #333; color: white; text-align: center; padding: 20px; }
     main { padding: 20px; }
     .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
-    .item { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+    .item { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.2); padding: 10px; text-align: center; }
     img, video { width: 100%; display: block; }
+    a.pdf-link { display: inline-block; padding: 8px 12px; margin-top: 8px; background: #3498db; color: white; border-radius: 5px; text-decoration: none; }
+    a.pdf-link:hover { background: #2980b9; }
 </style>
 </head>
 <body>
-<header><h1>My Design Gallery</h1></header>
+<header><h1>My Design Files</h1></header>
 <main>
     <div class="gallery" id="gallery"></div>
 </main>
 <footer style="background:#333;color:white;text-align:center;padding:10px;">&copy; 2025 Kalaiselvan R</footer>
 
 <script>
-const folderId = "1IgEieJrkxNrXDDfwGkqM8O-zz1trWBAY";
-const apiKey = "AIzaSyAhYxOiaiz363V7EZrU9O3lc5YURcwOx6o";
+const folderId = "1IgEieJrkxNrXDDfwGkqM8O-zz1trWBAY"; // Your folder ID
+const apiKey = "AIzaSyAhYxOiaiz363V7EZrU9O3lc5YURcwOx6o"; // Your API key
 const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&fields=files(id,name,mimeType)&key=${apiKey}`;
 
 async function loadGallery() {
@@ -31,14 +33,20 @@ async function loadGallery() {
     const gallery = document.getElementById("gallery");
     gallery.innerHTML = "";
     data.files.forEach(file => {
-        if (file.mimeType.startsWith("image/") || file.mimeType.startsWith("video/")) {
+        if (file.mimeType.startsWith("image/") || file.mimeType.startsWith("video/") || file.mimeType === "application/pdf") {
             const div = document.createElement("div");
             div.className = "item";
+
             if (file.mimeType.startsWith("image/")) {
                 div.innerHTML = `<img src="https://drive.google.com/uc?id=${file.id}" alt="${file.name}">`;
-            } else if (file.mimeType.startsWith("video/")) {
+            } 
+            else if (file.mimeType.startsWith("video/")) {
                 div.innerHTML = `<video controls><source src="https://drive.google.com/uc?id=${file.id}" type="${file.mimeType}"></video>`;
+            } 
+            else if (file.mimeType === "application/pdf") {
+                div.innerHTML = `<p><strong>${file.name}</strong></p><a class="pdf-link" href="https://drive.google.com/file/d/${file.id}/view" target="_blank">📄 View PDF</a>`;
             }
+
             gallery.appendChild(div);
         }
     });

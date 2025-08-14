@@ -1,223 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <style>
-        /* Typewriter Effect */
-        .typewriter {
-            display: inline-block;
-            font-weight: bold;
-            color: #00ffff;
-            border-right: 2px solid #00ffff;
-            white-space: nowrap;
-            overflow: hidden;
-            animation: blinkCursor 0.7s infinite;
-        }
-        @keyframes blinkCursor {
-            0% { border-color: transparent; }
-            50% { border-color: #00ffff; }
-            100% { border-color: transparent; }
-        }
-        /* General Styles */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            scroll-behavior: smooth;
-        }
-        header {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            position: relative;
-            animation: fadeIn 2s ease-out;
-        }
-        h1 { margin: 0; color: white; font-size: 2.5em; animation: slideInFromLeft 1.5s ease-out; line-height: 1.0; }
-        h1 span { display: block; margin-bottom: 0; }
-        .portfolio-photo {
-            width: 150px; height: 150px; border-radius: 80px; margin-top:10px; animation:fadeIn 2s ease-out;
-        }
-        p { font-size: 1.2em; color: #ccc; animation: fadeIn 2s ease-out; }
-        .three-dots-btn {
-            position: absolute; top: 20px; right: 20px; font-size: 30px; cursor: pointer;
-            background: none; border: none; color: white; transition: transform 0.3s ease-in-out;
-        }
-        .three-dots-btn:hover { transform: rotate(90deg); }
-        /* Popup */
-        .about-me-box {
-            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background-color: #fff; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 300px; border-radius: 8px; text-align: center; z-index: 100;
-            opacity: 0; transition: opacity 0.2s ease;
-        }
-        .about-me-box h2 { margin-bottom: 10px; color: #333; }
-        .about-me-box p { font-size: 16px; color: #555; }
-        .close-btn {
-            background-color: #3498db; color: white; border: none; padding: 5px 10px;
-            margin-top: 10px; cursor: pointer; border-radius: 5px; transition: background-color 0.3s ease;
-        }
-        .close-btn:hover { background-color: #2980b9; }
-        /* Sections */
-        h2 {
-            color: #2c3e50; font-size: 28px; font-weight: bold; text-transform: uppercase;
-            text-align: center; letter-spacing: 1px; border-bottom: 3px solid #3498db;
-            display: inline-block; padding-bottom: 5px; margin-bottom: 20px;
-        }
-        section {
-            padding: 20px; margin: 20px; background-color: #d3e7f1;
-            border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            opacity: 0; transition: opacity 1s ease-in;
-        }
-        .skills-box, .project-section, .contact-section, .cad-design-section, .internship-section {
-            background-color: #d3e7f1; color: black; padding: 20px; border-radius: 8px;
-        }
-        .project-card {
-            background-color: #fff; padding: 15px; margin-bottom: 15px; border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); transition: transform 0.2s ease, background-color 0.2s ease;
-        }
-        .project-card:hover { transform: translateY(-5px); background-color: #b0e0e6; }
-        footer {
-            background-color: #333; color: white; text-align: center; padding: 5px 0;
-            font-size: 14px; position: fixed; bottom: 0; width: 100%;
-        }
-        .section-visible { opacity: 1 !important; }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kalaiselvan R — Portfolio</title>
+<style>
+  :root{
+    --bg1:#0f172a;      /* slate-900 */
+    --bg2:#111827;      /* gray-900 */
+    --cyan:#06b6d4;
+    --blue:#3b82f6;
+    --indigo:#6366f1;
+    --card:#0b1220aa;   /* glass card bg */
+    --glass:#ffffff1a;
+    --text:#e5e7eb;
+    --muted:#cbd5e1;
+    --chip:#1f2937;     /* chip bg */
+    --ok:#10b981;
+  }
+
+  /* ===== Base ===== */
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;scroll-behavior:smooth}
+  body{
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:var(--text);
+    background: radial-gradient(1200px 800px at 15% -10%, #0ea5e933, transparent 60%),
+                radial-gradient(1000px 700px at 120% 10%, #22d3ee22, transparent 60%),
+                linear-gradient(180deg, var(--bg1), var(--bg2));
+    overflow-x:hidden;
+  }
+
+  /* animated gradient mesh overlay */
+  .bg-anim{
+    position: fixed; inset: -10vmax;
+    background:
+      radial-gradient(35vmax 35vmax at 10% 10%, #22d3ee22, transparent 60%),
+      radial-gradient(40vmax 40vmax at 90% 0%, #818cf81f, transparent 60%),
+      radial-gradient(45vmax 45vmax at 20% 100%, #3b82f61a, transparent 60%);
+    filter: blur(40px);
+    animation: float 14s ease-in-out infinite alternate;
+    z-index:-1;
+  }
+  @keyframes float{
+    0%{transform:translate3d(0,0,0) scale(1)}
+    100%{transform:translate3d(-3vmax,2vmax,0) scale(1.04)}
+  }
+
+  /* ===== Hero ===== */
+  header{
+    padding: clamp(24px,4vw,48px) 20px 0;
+  }
+  .hero{
+    max-width:1100px; margin:0 auto; display:grid; gap:24px;
+    grid-template-columns: 120px 1fr; align-items:center;
+  }
+  .avatar{
+    width:110px; height:110px; border-radius:24px; object-fit:cover;
+    box-shadow: 0 10px 30px #0006, 0 0 0 2px #ffffff22;
+  }
+  h1{
+    margin:0 0 6px; font-size: clamp(26px, 3.4vw, 40px); line-height:1.1;
+  }
+  .accent{color:var(--cyan); text-shadow:0 0 14px #06b6d455}
+  .subtitle{
+    margin:4px 0 0; color:var(--muted); font-size: clamp(14px,2.2vw,18px);
+  }
+  .typewriter{
+    display:inline-block; border-right:2px solid var(--cyan); padding-right:4px;
+    animation: blink 0.8s steps(1,end) infinite;
+    font-weight:700; color:var(--cyan);
+  }
+  @keyframes blink{50%{border-color:transparent}}
+
+  /* quick chips */
+  .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+  .chip{
+    background:var(--chip); color:#d1d5db; border:1px solid #334155;
+    font-size:12px; padding:6px 10px; border-radius:999px;
+  }
+
+  /* ===== Sections ===== */
+  section{padding: 26px 20px}
+  .container{max-width:1100px;margin:0 auto}
+
+  /* glass group */
+  .section-card{
+    background: linear-gradient(180deg, #0b122099, #0b122055);
+    border:1px solid #ffffff14; border-radius:20px; padding:18px;
+    box-shadow: 0 20px 60px #0007, inset 0 1px 0 #ffffff11;
+    backdrop-filter: blur(8px);
+    transform: translateY(6px); opacity:0; transition: all .8s ease;
+  }
+  .section-card.visible{transform:none; opacity:1}
+
+  .section-title{
+    margin:0 0 12px; letter-spacing:.08em;
+    font-weight:800; font-size: clamp(16px,2.6vw,18px);
+    color:#c7d2fe; display:flex; align-items:center; gap:10px;
+  }
+  .bar{height:2px; width:42px; background:linear-gradient(90deg,var(--cyan),var(--indigo)); border-radius:2px}
+
+  /* ===== Lists / Cards ===== */
+  .cards{display:grid; gap:14px; grid-template-columns: 1fr}
+  @media(min-width:720px){ .cards{grid-template-columns: repeat(2, 1fr)}}
+
+  .card{
+    background: var(--card);
+    border:1px solid #ffffff1a; border-radius:16px; padding:16px;
+    transition: transform .25s ease, border-color .25s ease, background .25s ease;
+  }
+  .card:hover{transform: translateY(-4px); border-color:#60a5fa55; background:#0b1220cc}
+  .card h3{margin:0 0 6px; font-size: clamp(15px,2.4vw,18px)}
+  .bullets{margin:8px 0 0; padding-left:18px; color:#cbd5e1}
+  .bullets li{margin:6px 0}
+  .tagline{color:#94a3b8; font-size:13px}
+
+  /* ===== CTA row ===== */
+  .cta-row{display:flex; flex-wrap:wrap; gap:12px; margin-top:12px}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:10px 14px; border-radius:12px; font-weight:700; text-decoration:none;
+    border:1px solid #22d3ee55; background: linear-gradient(180deg,#0ea5e94d,#0891b22a);
+    color:#e6fbff; box-shadow: 0 6px 25px #0891b233, inset 0 1px 0 #ffffff22;
+  }
+  .btn:hover{transform:translateY(-1px)}
+
+  /* ===== Contact ===== */
+  .contact-grid{display:grid; gap:12px; grid-template-columns: 1fr; margin-top:8px}
+  @media(min-width:680px){ .contact-grid{grid-template-columns: repeat(2,1fr)}}
+  .contact-card{display:flex; align-items:center; justify-content:space-between; gap:14px}
+  .contact-card .left{display:flex; align-items:center; gap:12px}
+  .icon{
+    width:36px;height:36px;border-radius:10px;display:grid;place-items:center;
+    background:linear-gradient(180deg,#1f2937,#111827); border:1px solid #ffffff22
+  }
+  .contact-link{
+    margin-left:auto; text-decoration:none; font-weight:700; color:#e2f3ff;
+    border:1px solid #3b82f666; padding:8px 12px; border-radius:10px;
+    background:linear-gradient(180deg,#1d4ed81f,#1e40af1a)
+  }
+  .contact-link:hover{border-color:#60a5fa}
+
+  /* ===== Footer ===== */
+  footer{
+    color:#9ca3af; font-size:12px; text-align:center; padding:22px 10px 34px;
+  }
+
+</style>
 </head>
 <body>
+<div class="bg-anim"></div>
 
-<header style="padding: 30px;">
-    <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap;">
-        <div style="flex: 1; text-align: center;">
-            <img src="Image.jpg" alt="Portfolio Image" class="portfolio-photo">
-        </div>
-        <div style="flex: 2; padding: 10px; text-align: left;">
-            <h1 style="font-size: 1.8em; color: white; margin: 0;">
-                <div>Hello, I am</div>
-                <div style="font-size: 1.8em; font-weight: bold; color: #00ffff; text-shadow: 0 0 8px #00ffff;">Kalaiselvan R</div>
-                <div style="margin-top: 10px;">I'm <span class="typewriter" id="typewriter-text"></span></div>
-            </h1>
-            <p>Fresher Design Engineer | BE Mechanical Engineering | Design Engineer - Freelance | Enthusiastic About Applying Engineering Principles to Real-World Projects</p>
-        </div>
+<header>
+  <div class="hero">
+    <img src="Image.jpg" alt="Kalaiselvan R" class="avatar"/>
+    <div>
+      <h1>
+        Hi, I'm <span class="accent">Kalaiselvan R</span>
+      </h1>
+      <div class="subtitle">
+        <span class="typewriter" id="typewriter"></span> • BE Mechanical • Design Engineer – Freelance
+      </div>
+      <div class="chips">
+        <span class="chip">Creo</span>
+        <span class="chip">AutoCAD</span>
+        <span class="chip">SolidWork</span>
+        <span class="chip">NX</span>
+        <span class="chip">Catia V5</span>
+      </div>
+      <div class="cta-row">
+        <a class="btn" href="design-files.html" target="_blank">View Designs</a>
+        <a class="btn" href="certificate.html" target="_blank">Certificates</a>
+        <a class="btn" href="mailto:mechkalai2004@gmail.com">Contact Me</a>
+        <a class="btn" href="https://drive.google.com/file/d/1LNqFKEAw8jceq_daf_h1bGr6rB8mpFaz/view" target="_blank">📄 View Resume</a>
+      </div>
     </div>
-    <button class="three-dots-btn" onclick="toggleAboutMe()">&#x2022;&#x2022;&#x2022;</button>
+  </div>
 </header>
 
-<div class="about-me-box" id="aboutMeBox">
-    <h2>About Me</h2>
-    <p><strong>Name:</strong> Kalaiselvan R</p>
-    <p><strong>Born:</strong> 19 Nov 2004 (<span id="age"></span> years old)</p>
-    <p><strong>Degree & Course:</strong> BE & Mechanical Engineering</p>
-    <p><strong>City:</strong> Namakkal</p>
-    <p><strong>Pin Code:</strong> 637013</p>
-    <a href="https://drive.google.com/file/d/1LNqFKEAw8jceq_daf_h1bGr6rB8mpFaz/view" target="_blank">📄 View Resume</a>
-    <button class="close-btn" onclick="toggleAboutMe()">Close</button>
-</div>
-
-<section class="skills-box">
-    <h2>Skills & Tools</h2>
-    <ul>
-        <li>Creo (Part Modeling, Assembly, Sheet Metal, Drafting)</li>
-        <li>AutoCAD (2D & Isometric)</li>
-        <li>CATIA V5 (Part Modeling, Assembly)</li>
-        <li>NX-Unigraphics (Part Modeling, Assembly, Surface)</li>
-        <li>SolidWorks (Part Modeling, Assembly, Drafting)</li>
-    </ul>
-</section>
-
-<section class="internship-section">
-    <h2>Internships</h2>
-    <div class="project-card">
-        <h3>Pumo Technovation India Pvt Ltd (Feb 2025 – Present)</h3>
-        <p>Hands-on experience in Creo: Part Modeling, Assembly Design, Sheet Metal, Drafting.  
-        Practiced AutoCAD 2D & Isometric drawings, applied GD&T, and engineering standards.</p>
+<main>
+  <section>
+    <div class="container section-card" data-animate>
+      <div class="section-title"><span class="bar"></span> SKILLS</div>
+      <div class="cards">
+        <div class="card">
+          <h3>CAD</h3>
+          <ul class="bullets">
+            <li><strong>Creo:</strong> Part, Assembly, Sheet Metal, Drafting</li>
+            <li><strong>AutoCAD:</strong> 2D & Isometric</li>
+            <li><strong>CATIA V5 / NX / SolidWorks:</strong> Part & Assembly</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Focus</h3>
+          <ul class="bullets">
+            <li>GD&T application in drawings</li>
+            <li>Manufacturability & BOM readiness</li>
+            <li>Clean drafting standards</li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="project-card">
-        <h3>Macbro Technology Pvt Ltd (Jul 2024 – Aug 2024)</h3>
-        <p>Worked on CATIA V5 Part & Assembly design for industrial components.  
-        Used NX-Unigraphics for Part, Assembly, and Surface modeling with parametric design principles.</p>
+  </section>
+
+  <section>
+    <div class="container section-card" data-animate>
+      <div class="section-title"><span class="bar"></span> INTERNSHIPS</div>
+      <div class="cards">
+        <div class="card">
+          <h3>Pumo Technovation India Pvt Ltd — <span class="tagline">Feb 2025 – Present</span></h3>
+          <ul class="bullets">
+            <li>Creo: Part, Assembly, Sheet Metal, Drafting</li>
+            <li>AutoCAD: 2D & Isometric</li>
+            <li>Applied GD&T and standards</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Macbro Technology Pvt Ltd — <span class="tagline">Jul 2024 – Aug 2024</span></h3>
+          <ul class="bullets">
+            <li>CATIA V5: Part & Assembly</li>
+            <li>NX: Part, Assembly, Surface</li>
+            <li>Parametric design workflow</li>
+          </ul>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<section class="project-section">
-    <h2>Projects</h2>
-    <div class="project-card">
-        <h3>Design and Development of Automotive Engine Components</h3>
-        <p>Designed cylinder block, crankshaft, camshaft in Creo with assembly integration & GD&T.  
-        Created exploded views, BOM, and ensured material selection and manufacturability.</p>
+  <section>
+    <div class="container section-card" data-animate>
+      <div class="section-title"><span class="bar"></span> PROJECTS</div>
+      <div class="cards">
+        <div class="card">
+          <h3>Design & Development of Automotive Engine Components</h3>
+          <ul class="bullets">
+            <li>Creo models: cylinder block, crankshaft, camshaft</li>
+            <li>Assembly integration with GD&T</li>
+            <li>Exploded views & BOM for manufacturing</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Design & Drafting of PLC Control Panel</h3>
+          <ul class="bullets">
+            <li>Creo enclosure with precise hole placements</li>
+            <li>Clear 2D drafting sheets with GD&T</li>
+            <li>Manufacturing-ready documentation</li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="project-card">
-        <h3>Design and Drafting of PLC Control Panel</h3>
-        <p>Designed enclosure in Creo Parametric with accurate hole placements for components.  
-        Generated detailed 2D drafting sheets with GD&T for manufacturing clarity.</p>
+  </section>
+
+  <section>
+    <div class="container section-card contact" data-animate>
+      <div class="section-title"><span class="bar"></span> CONTACT</div>
+      <div class="contact-grid">
+        <div class="card contact-card">
+          <div class="left">
+            <div class="icon">✉️</div>
+            <div>
+              <div>Email</div>
+              <div class="tagline">mechkalai2004@gmail.com</div>
+            </div>
+          </div>
+          <a class="contact-link" href="mailto:mechkalai2004@gmail.com">Write</a>
+        </div>
+
+        <div class="card contact-card">
+          <div class="left">
+            <div class="icon">🔗</div>
+            <div>
+              <div>LinkedIn</div>
+              <div class="tagline">/in/kalaiselvanr191120</div>
+            </div>
+          </div>
+          <a class="contact-link" target="_blank" href="https://www.linkedin.com/in/kalaiselvanr191120">Visit</a>
+        </div>
+
+        <div class="card contact-card">
+          <div class="left">
+            <div class="icon">💻</div>
+            <div>
+              <div>GitHub</div>
+              <div class="tagline">/kalaiselvan0604</div>
+            </div>
+          </div>
+          <a class="contact-link" target="_blank" href="https://github.com/kalaiselvan0604">Open</a>
+        </div>
+
+        <div class="card contact-card">
+          <div class="left">
+            <div class="icon">💬</div>
+            <div>
+              <div>WhatsApp</div>
+              <div class="tagline">+91 81109 25400</div>
+            </div>
+          </div>
+          <a class="contact-link" target="_blank" href="https://wa.me/8110925400">Message</a>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
+</main>
 
-<section class="cad-design-section">
-    <h2>Design Photos & Videos</h2>
-    <p>Click below to view my design gallery:</p>
-    <a href="design-files.html" target="_blank">View Gallery</a>
-</section>
-
-<section class="cad-design-section">
-    <h2>Certificates</h2>
-    <p>Click below to view my Certificates:</p>
-    <a href="certificate.html" target="_blank">View Certificates</a>
-</section>
-
-<section class="contact-section">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:mechkalai2004@gmail.com">Go to Mail >>></a></p>
-    <p>LinkedIn: <a href="https://www.linkedin.com/in/kalaiselvanr191120" target="_blank">Go to LinkedIn >>></a></p>
-    <p>GitHub: <a href="https://github.com/kalaiselvan0604" target="_blank">Go to GitHub>>></a></p>
-    <p>WhatsApp: <a href="https://wa.me/8110925400" target="_blank">Message Me</a></p>
-</section>
-
-<footer><p>&copy; 2025 Kalaiselvan R | All Rights Reserved</p></footer>
+<footer>
+  © 2025 Kalaiselvan R • All Rights Reserved
+</footer>
 
 <script>
-    const sections = document.querySelectorAll('section');
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('section-visible'); });
-    }, { threshold: 0.3 });
-    sections.forEach(section => observer.observe(section));
+  /* Typewriter */
+  const roles = ["Freelance Design Engineer","CAD Specialist","Mechanical Designer"];
+  let i=0,j=0,cur="",el=document.getElementById("typewriter");
+  const speed=85, pause=1200;
+  (function type(){
+    if(j<roles[i].length){ cur+=roles[i][j++]; el.textContent=cur; return setTimeout(type,speed); }
+    setTimeout(erase,pause);
+  })();
+  function erase(){
+    if(j>0){ cur=cur.slice(0,-1); j--; el.textContent=cur; return setTimeout(erase,40); }
+    i=(i+1)%roles.length; setTimeout(()=>{type()},80);
+  }
 
-    function toggleAboutMe() {
-        const box = document.getElementById('aboutMeBox');
-        box.style.display = (box.style.display === 'block') ? 'none' : 'block';
-        box.style.opacity = (box.style.display === 'block') ? '1' : '0';
-    }
-
-    const dob = new Date("2004-11-19");
-    document.getElementById("age").textContent = new Date().getFullYear() - dob.getFullYear() -
-        (new Date().getMonth() < dob.getMonth() || (new Date().getMonth() === dob.getMonth() && new Date().getDate() < dob.getDate()) ? 1 : 0);
-
-    const roles = ["Designer", "CAD Specialist", "Freelance Design Engineer"];
-    let index = 0, charIndex = 0, currentRole = "";
-    const speed = 100, eraseDelay = 1500;
-    const typewriter = document.getElementById("typewriter-text");
-    function type() {
-        if (charIndex < roles[index].length) {
-            currentRole += roles[index].charAt(charIndex);
-            typewriter.textContent = currentRole;
-            charIndex++;
-            setTimeout(type, speed);
-        } else { setTimeout(erase, eraseDelay); }
-    }
-    function erase() {
-        if (charIndex > 0) {
-            currentRole = currentRole.slice(0, -1);
-            typewriter.textContent = currentRole;
-            charIndex--;
-            setTimeout(erase, speed / 2);
-        } else { index = (index + 1) % roles.length; setTimeout(type, speed); }
-    }
-    type();
+  /* Reveal on view */
+  const obs=new IntersectionObserver((es)=>es.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+  }),{threshold:0.25});
+  document.querySelectorAll('[data-animate]').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>

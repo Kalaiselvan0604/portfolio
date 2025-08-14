@@ -5,30 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
     <style>
+        /* Typewriter Effect */
         .typewriter {
-  display: inline-block;
-  font-weight: bold;
-  color: #00ffff;
-  border-right: 2px solid #00ffff;
-  white-space: nowrap;
-  overflow: hidden;
-  animation: blinkCursor 0.7s infinite;
-}
-
-@keyframes blinkCursor {
-  0% { border-color: transparent; }
-  50% { border-color: #00ffff; }
-  100% { border-color: transparent; }
-}
+            display: inline-block;
+            font-weight: bold;
+            color: #00ffff;
+            border-right: 2px solid #00ffff;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: blinkCursor 0.7s infinite;
+        }
+        @keyframes blinkCursor {
+            0% { border-color: transparent; }
+            50% { border-color: #00ffff; }
+            100% { border-color: transparent; }
+        }
+        /* General Styles */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
             line-height: 1.6;
-            scroll-behavior: smooth; /* Enables smooth scrolling */
+            scroll-behavior: smooth;
         }
-
         header {
             background-color: #333;
             color: white;
@@ -38,428 +38,186 @@
             position: relative;
             animation: fadeIn 2s ease-out;
         }
-
-        h1 {
-            margin: 0;
-            color: white;
-            font-size: 2.5em;
-            animation: slideInFromLeft 1.5s ease-out;
-            line-height: 1.0; /* Reduced line spacing */
-        }
-
-        h1 span {
-            display: block;
-            margin-bottom: 0; /* Removes extra space between lines */
-        }
-
+        h1 { margin: 0; color: white; font-size: 2.5em; animation: slideInFromLeft 1.5s ease-out; line-height: 1.0; }
+        h1 span { display: block; margin-bottom: 0; }
         .portfolio-photo {
-            width: 150px; /* Makes the image responsive */
-            height: 150px; /* Maintains aspect ratio */
-            border-radius: 80px; /* Adds rounded corners */
-            margin-top:10px;
-            animation:fadeIn 2s ease-out;
+            width: 150px; height: 150px; border-radius: 80px; margin-top:10px; animation:fadeIn 2s ease-out;
         }
-
-        p {
-            font-size: 1.2em;
-            color: #ccc;
-            animation: fadeIn 2s ease-out;
-        }
-
+        p { font-size: 1.2em; color: #ccc; animation: fadeIn 2s ease-out; }
         .three-dots-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 30px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: white;
-            transition: transform 0.3s ease-in-out;
+            position: absolute; top: 20px; right: 20px; font-size: 30px; cursor: pointer;
+            background: none; border: none; color: white; transition: transform 0.3s ease-in-out;
         }
-
-        .three-dots-btn:hover {
-            transform: rotate(90deg);
-        }
-
+        .three-dots-btn:hover { transform: rotate(90deg); }
+        /* Popup */
         .about-me-box {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 300px;
-            border-radius: 8px;
-            text-align: center;
-            z-index: 100;
-            opacity: 0;
-            transition: opacity 0.2s ease;
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background-color: #fff; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px; border-radius: 8px; text-align: center; z-index: 100;
+            opacity: 0; transition: opacity 0.2s ease;
         }
-
-        .about-me-box h2 {
-            margin-bottom: 10px;
-            color: #333;
-            animation: fadeInUp 1.5s ease-out;
-        }
-
-        .about-me-box p {
-            font-size: 16px;
-            color: #555;
-            animation: fadeInUp 2s ease-out;
-        }
-
+        .about-me-box h2 { margin-bottom: 10px; color: #333; }
+        .about-me-box p { font-size: 16px; color: #555; }
         .close-btn {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            margin-top: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+            background-color: #3498db; color: white; border: none; padding: 5px 10px;
+            margin-top: 10px; cursor: pointer; border-radius: 5px; transition: background-color 0.3s ease;
         }
-
-        .close-btn:hover {
-            background-color: #2980b9;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideInFromLeft {
-            from {
-                transform: translateX(-100%);
-            }
-            to {
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
+        .close-btn:hover { background-color: #2980b9; }
+        /* Sections */
         h2 {
-            color: #2c3e50;
-            font-size: 28px;
-            font-weight: bold;
-            text-transform: uppercase;
-            text-align: center;
-            letter-spacing: 1px;
-            border-bottom: 3px solid #3498db;
-            display: inline-block;
-            padding-bottom: 5px;
-            margin-bottom: 20px;
-            animation: fadeInUp 2s ease-out;
+            color: #2c3e50; font-size: 28px; font-weight: bold; text-transform: uppercase;
+            text-align: center; letter-spacing: 1px; border-bottom: 3px solid #3498db;
+            display: inline-block; padding-bottom: 5px; margin-bottom: 20px;
         }
-
         section {
-            padding: 20px;
-            margin: 20px;
-            background-color: #d3e7f1;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 2s ease-out;
-            opacity: 0;
-            transition: opacity 1s ease-in;
+            padding: 20px; margin: 20px; background-color: #d3e7f1;
+            border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            opacity: 0; transition: opacity 1s ease-in;
         }
-
-        .skills-box, .project-section, .contact-section, .cad-design-section {
-            background-color: #d3e7f1;
-            color: black;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 2s ease-out;
+        .skills-box, .project-section, .contact-section, .cad-design-section, .internship-section {
+            background-color: #d3e7f1; color: black; padding: 20px; border-radius: 8px;
         }
-
         .project-card {
-            background-color: #ffffff;
-            color: black;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s ease, background-color 0.2s ease;
+            background-color: #fff; padding: 15px; margin-bottom: 15px; border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); transition: transform 0.2s ease, background-color 0.2s ease;
         }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            background-color: #b0e0e6;
-        }
-
-        .project-card h3 {
-            font-size: 1.5em;
-            margin: 0;
-            padding-bottom: 5px;
-            text-transform: uppercase;
-        }
-
-        .project-card p {
-            font-size: 1em;
-            line-height: 1.5;
-            color: black;
-        }
-
-        .contact-section a {
-            color: #3498db;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .contact-section a:hover {
-            text-decoration: underline;
-        }
-
+        .project-card:hover { transform: translateY(-5px); background-color: #b0e0e6; }
         footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 5px 0;
-            font-size: 14px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+            background-color: #333; color: white; text-align: center; padding: 5px 0;
+            font-size: 14px; position: fixed; bottom: 0; width: 100%;
         }
-
-        .cad-design-section p {
-            color: black;
-        }
-
-        .cad-design-section a {
-            color: #3498db;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .cad-design-section a:hover {
-            text-decoration: underline;
-        }
-
-        /* Contact section labels (Email, LinkedIn, GitHub, WhatsApp) in black */
-        .contact-section p {
-            font-size: 1.2em;
-            color: black;
-        }
-
-        .contact-section .email a,
-        .contact-section .linkedin a,
-        .contact-section .github a,
-        .contact-section .whatsapp a {
-            color: #3498db;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .contact-section .email a:hover,
-        .contact-section .linkedin a:hover,
-        .contact-section .github a:hover,
-        .contact-section .whatsapp a:hover {
-            text-decoration: underline;
-        }
-
-        /* Spacing adjustments */
-        .contact-section {
-            margin-bottom: 50px; /* Adds space below the Contact section */
-        }
-
-        .footer {
-            margin-top: 50px; /* Ensure the footer stays at the bottom of the page */
-        }
-
-        /* Animation trigger when section is in viewport */
-        .section-visible {
-            opacity: 1 !important;
-        }
+        .section-visible { opacity: 1 !important; }
     </style>
 </head>
 <body>
 
-   <header style="padding: 30px;">
-  <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap;">
-    
-    <!-- Profile Image -->
-    <div style="flex: 1; text-align: center;">
-      <img src="Image.jpg" alt="Portfolio Image" class="portfolio-photo" style="width: 150px; height: 150px; border-radius: 80px;">
+<header style="padding: 30px;">
+    <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap;">
+        <div style="flex: 1; text-align: center;">
+            <img src="Image.jpg" alt="Portfolio Image" class="portfolio-photo">
+        </div>
+        <div style="flex: 2; padding: 10px; text-align: left;">
+            <h1 style="font-size: 1.8em; color: white; margin: 0;">
+                <div>Hello, I am</div>
+                <div style="font-size: 1.8em; font-weight: bold; color: #00ffff; text-shadow: 0 0 8px #00ffff;">Kalaiselvan R</div>
+                <div style="margin-top: 10px;">I'm <span class="typewriter" id="typewriter-text"></span></div>
+            </h1>
+            <p>Fresher Design Engineer | BE Mechanical Engineering | Design Engineer - Freelance | Enthusiastic About Applying Engineering Principles to Real-World Projects</p>
+        </div>
     </div>
+    <button class="three-dots-btn" onclick="toggleAboutMe()">&#x2022;&#x2022;&#x2022;</button>
+</header>
 
-    <!-- Text Content -->
-    <div style="flex: 2; padding: 10px; text-align: left;">
-      <h1 style="font-size: 1.8em; color: white; margin: 0;">
-        <div style="margin-bottom: 5px;">Hello, I am</div>
-        <div style="font-size: 1.8em; font-weight: bold; color: #00ffff; text-shadow: 0 0 8px #00ffff;">
-          Kalaiselvan R
-        </div>
-        <div style="margin-top: 10px;">I'm <span class="typewriter" id="typewriter-text"></span></div>
-      </h1>
-      <p style="font-size: 1.1em; color: #ccc;">
-        Fresher Design Engineer | BE Mechanical Engineering | Enthusiastic About Applying Engineering Principles to Real-World Projects
-      </p>
-    </div>
-  </div>
+<div class="about-me-box" id="aboutMeBox">
+    <h2>About Me</h2>
+    <p><strong>Name:</strong> Kalaiselvan R</p>
+    <p><strong>Born:</strong> 19 Nov 2004 (<span id="age"></span> years old)</p>
+    <p><strong>Degree & Course:</strong> BE & Mechanical Engineering</p>
+    <p><strong>City:</strong> Namakkal</p>
+    <p><strong>Pin Code:</strong> 637013</p>
+    <a href="https://drive.google.com/file/d/1LNqFKEAw8jceq_daf_h1bGr6rB8mpFaz/view" target="_blank">📄 View Resume</a>
+    <button class="close-btn" onclick="toggleAboutMe()">Close</button>
+</div>
 
-  <!-- Three Dots Button -->
-  <button class="three-dots-btn" onclick="toggleAboutMe()">&#x2022;&#x2022;&#x2022;</button>
-   </header>
-
-    <div class="about-me-box" id="aboutMeBox">
-        <h2>About Me</h2>
-        <p><strong>Name:</strong> Kalaiselvan R</p>
-        <p><strong>Born:</strong> 19 Nov 2004 (<span id="age"></span> years old)</p>
-        <p><strong>Degree & Course:</strong> BE & Mechanical Engineering</p>
-        <p><strong>City:</strong> Namakkal</p>
-        <p><strong>Pin Code:</strong> 637013</p>
-        <a href="https://drive.google.com/file/d/1LNqFKEAw8jceq_daf_h1bGr6rB8mpFaz/view" target="_blank" style="background-color:#3498db;color:white;padding:10px 20px;border:none;border-radius:5px;text-decoration:none;font-weight:bold;display:inline-block;margin-top:10px;">📄 View Resume</a>
-        <button class="close-btn" onclick="toggleAboutMe()">Close</button>
-    </div>
-
-    <section class="skills-box">
-        <h2>Skills & Tools</h2>
-        <ul>
-            <li>SolidWorks</li>
-            <li>CATIA V5</li>
-            <li>Unigraphics NX</li>
-            <li>AutoCAD (Basic Knowledge)</li>
-            <li>Creo (professional course certified)</li>
-        </ul>
-    </section>
-
-    <section class="project-section">
-        <h2>Projects</h2>
-        <div class="project-card">
-            <h3>Mechanical Part Design</h3>
-            <p>A 3D model created using Creo for a custom mechanical part.</p>
-        </div>
-        <div class="project-card">
-            <h3>Assembly Design</h3>
-            <p>A complete part assembly designed using Creo and Unigraphics</p>
-        </div>
-        <div class="project-card">
-            <h3>Mechanism Design</h3>
-            <p>A design of a mechanical system using Unigraphics NX for simulation.</p>
-        </div>
-    </section>
-
-    <!-- CAD Design Section -->
-<section class="cad-design-section">
-    <h2>CAD Design Files</h2>
-    <p>Click below to view my CAD designs:</p>
-    <a href="design-files.html" target="_blank">View Design</a>
+<section class="skills-box">
+    <h2>Skills & Tools</h2>
+    <ul>
+        <li>Creo (Part Modeling, Assembly, Sheet Metal, Drafting)</li>
+        <li>AutoCAD (2D & Isometric)</li>
+        <li>CATIA V5 (Part Modeling, Assembly)</li>
+        <li>NX-Unigraphics (Part Modeling, Assembly, Surface)</li>
+        <li>SolidWorks (Part Modeling, Assembly, Drafting)</li>
+    </ul>
 </section>
 
-<!-- NEW Certificate Section -->
+<section class="internship-section">
+    <h2>Internships</h2>
+    <div class="project-card">
+        <h3>Pumo Technovation India Pvt Ltd (Feb 2025 – Present)</h3>
+        <p>Hands-on experience in Creo: Part Modeling, Assembly Design, Sheet Metal, Drafting.  
+        Practiced AutoCAD 2D & Isometric drawings, applied GD&T, and engineering standards.</p>
+    </div>
+    <div class="project-card">
+        <h3>Macbro Technology Pvt Ltd (Jul 2024 – Aug 2024)</h3>
+        <p>Worked on CATIA V5 Part & Assembly design for industrial components.  
+        Used NX-Unigraphics for Part, Assembly, and Surface modeling with parametric design principles.</p>
+    </div>
+</section>
+
+<section class="project-section">
+    <h2>Projects</h2>
+    <div class="project-card">
+        <h3>Design and Development of Automotive Engine Components</h3>
+        <p>Designed cylinder block, crankshaft, camshaft in Creo with assembly integration & GD&T.  
+        Created exploded views, BOM, and ensured material selection and manufacturability.</p>
+    </div>
+    <div class="project-card">
+        <h3>Design and Drafting of PLC Control Panel</h3>
+        <p>Designed enclosure in Creo Parametric with accurate hole placements for components.  
+        Generated detailed 2D drafting sheets with GD&T for manufacturing clarity.</p>
+    </div>
+</section>
+
+<section class="cad-design-section">
+    <h2>Design Photos & Videos</h2>
+    <p>Click below to view my design gallery:</p>
+    <a href="design-files.html" target="_blank">View Gallery</a>
+</section>
+
 <section class="cad-design-section">
     <h2>Certificates</h2>
     <p>Click below to view my Certificates:</p>
     <a href="certificate.html" target="_blank">View Certificates</a>
 </section>
 
-    <section class="contact-section">
-        <h2>Contact</h2>
-        <p class="email">Email: <a href="mailto:mechkalai2004@gmail.com"> Go to Mail >>></a></p>
-        <p class="linkedin">LinkedIn: <a href="https://www.linkedin.com/in/kalaiselvanr191120" target="_blank"> Go to LinkedIn >>></a></p>
-        <p class="github">GitHub: <a href="https://github.com/kalaiselvan0604" target="_blank"> Go to GitHub>>> </a></p>
-        <p class="whatsapp">WhatsApp: <a href="https://wa.me/8110925400" target="_blank">Message Me</a></p>
-    </section>
+<section class="contact-section">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:mechkalai2004@gmail.com">Go to Mail >>></a></p>
+    <p>LinkedIn: <a href="https://www.linkedin.com/in/kalaiselvanr191120" target="_blank">Go to LinkedIn >>></a></p>
+    <p>GitHub: <a href="https://github.com/kalaiselvan0604" target="_blank">Go to GitHub>>></a></p>
+    <p>WhatsApp: <a href="https://wa.me/8110925400" target="_blank">Message Me</a></p>
+</section>
 
-    <footer>
-        <p>&copy; 2025 Kalaiselvan R | All Rights Reserved</p>
-    </footer>
+<footer><p>&copy; 2025 Kalaiselvan R | All Rights Reserved</p></footer>
 
-    <script>
-        // Intersection Observer for scroll animations
-        const sections = document.querySelectorAll('section');
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.3
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('section-visible');
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-
-        function toggleAboutMe() {
-            const aboutMeBox = document.getElementById('aboutMeBox');
-            aboutMeBox.style.display = (aboutMeBox.style.display === 'block') ? 'none' : 'block';
-            aboutMeBox.style.opacity = (aboutMeBox.style.display === 'block') ? '1' : '0';
-        }
-    </script>
-    
 <script>
-  // Set your Date of Birth
-  const dob = new Date("2004-11-19"); // 19 November 2004
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('section-visible'); });
+    }, { threshold: 0.3 });
+    sections.forEach(section => observer.observe(section));
 
-  function calculateAge(birthDate) {
-    const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
+    function toggleAboutMe() {
+        const box = document.getElementById('aboutMeBox');
+        box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+        box.style.opacity = (box.style.display === 'block') ? '1' : '0';
     }
-    return age;
-  }
 
-  // Display age in span with id="age"
-  document.getElementById("age").textContent = calculateAge(dob);
-</script>
-    <script>
-  const roles = ["Designer", "CAD Specialist"];
-  let index = 0;
-  let charIndex = 0;
-  let currentRole = "";
-  const speed = 100;
-  const eraseDelay = 1500;
-  const typewriter = document.getElementById("typewriter-text");
+    const dob = new Date("2004-11-19");
+    document.getElementById("age").textContent = new Date().getFullYear() - dob.getFullYear() -
+        (new Date().getMonth() < dob.getMonth() || (new Date().getMonth() === dob.getMonth() && new Date().getDate() < dob.getDate()) ? 1 : 0);
 
-  function type() {
-    if (charIndex < roles[index].length) {
-      currentRole += roles[index].charAt(charIndex);
-      typewriter.textContent = currentRole;
-      charIndex++;
-      setTimeout(type, speed);
-    } else {
-      setTimeout(erase, eraseDelay);
+    const roles = ["Designer", "CAD Specialist", "Freelance Design Engineer"];
+    let index = 0, charIndex = 0, currentRole = "";
+    const speed = 100, eraseDelay = 1500;
+    const typewriter = document.getElementById("typewriter-text");
+    function type() {
+        if (charIndex < roles[index].length) {
+            currentRole += roles[index].charAt(charIndex);
+            typewriter.textContent = currentRole;
+            charIndex++;
+            setTimeout(type, speed);
+        } else { setTimeout(erase, eraseDelay); }
     }
-  }
-
-  function erase() {
-    if (charIndex > 0) {
-      currentRole = currentRole.slice(0, -1);
-      typewriter.textContent = currentRole;
-      charIndex--;
-      setTimeout(erase, speed / 2);
-    } else {
-      index = (index + 1) % roles.length;
-      setTimeout(type, speed);
+    function erase() {
+        if (charIndex > 0) {
+            currentRole = currentRole.slice(0, -1);
+            typewriter.textContent = currentRole;
+            charIndex--;
+            setTimeout(erase, speed / 2);
+        } else { index = (index + 1) % roles.length; setTimeout(type, speed); }
     }
-  }
-
-  type();
+    type();
 </script>
 </body>
 </html>

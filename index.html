@@ -1,104 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kalaiselvan R - Portfolio</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kalaiselvan R — Portfolio</title>
 <style>
-/* General Styling */
-body { font-family: Arial, sans-serif; margin:0; padding:0; background: #f4f4f4; }
-header { background: linear-gradient(to right, #00416A, #E4E5E6); color: white; text-align: center; padding: 20px; }
-.portfolio-photo { width: 150px; height: 150px; border-radius: 50%; }
-h1 { margin: 0; }
-.job-title { font-size: 1.3em; color: #FFD700; animation: fadeIn 2s ease-in-out infinite alternate; }
-@keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+  :root{
+    --bg1:#0f172a;      /* slate-900 */
+    --bg2:#111827;      /* gray-900 */
+    --cyan:#06b6d4;
+    --blue:#3b82f6;
+    --indigo:#6366f1;
+    --card:#0b1220aa;   /* glass card bg */
+    --glass:#ffffff1a;
+    --text:#e5e7eb;
+    --muted:#cbd5e1;
+    --chip:#1f2937;     /* chip bg */
+    --ok:#10b981;
+  }
 
-/* Button styling */
-.resume-btn { display: inline-block; padding: 8px 14px; background: #FFD700; color: #000; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 10px; }
+  /* ===== Base ===== */
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;scroll-behavior:smooth}
+  body{
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:var(--text);
+    background: radial-gradient(1200px 800px at 15% -10%, #0ea5e933, transparent 60%),
+                radial-gradient(1000px 700px at 120% 10%, #22d3ee22, transparent 60%),
+                linear-gradient(180deg, var(--bg1), var(--bg2));
+    overflow-x:hidden;
+  }
 
-/* Sections */
-section { padding: 20px; margin: 15px; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-h2 { color: #00416A; text-align: center; border-bottom: 2px solid #00416A; padding-bottom: 5px; }
-ul { padding-left: 20px; }
-li { margin-bottom: 5px; }
+  /* animated gradient mesh overlay */
+  .bg-anim{
+    position: fixed; inset: -10vmax;
+    background:
+      radial-gradient(35vmax 35vmax at 10% 10%, #22d3ee22, transparent 60%),
+      radial-gradient(40vmax 40vmax at 90% 0%, #818cf81f, transparent 60%),
+      radial-gradient(45vmax 45vmax at 20% 100%, #3b82f61a, transparent 60%);
+    filter: blur(40px);
+    animation: float 14s ease-in-out infinite alternate;
+    z-index:-1;
+  }
+  @keyframes float{
+    0%{transform:translate3d(0,0,0) scale(1)}
+    100%{transform:translate3d(-3vmax,2vmax,0) scale(1.04)}
+  }
 
-/* Contact section */
-.contact-links a { display: block; padding: 10px; margin: 5px auto; max-width: 250px; text-align: center; background: #00416A; color: white; border-radius: 5px; text-decoration: none; }
-.contact-links a:hover { background: #FFD700; color: black; }
+  /* ===== Hero ===== */
+  header{
+    padding: clamp(24px,4vw,48px) 20px 0;
+  }
+  .hero{
+    max-width:1100px; margin:0 auto; display:grid; gap:24px;
+    grid-template-columns: 120px 1fr; align-items:center;
+  }
+  .avatar{
+    width:110px; height:110px; border-radius:24px; object-fit:cover;
+    box-shadow: 0 10px 30px #0006, 0 0 0 2px #ffffff22;
+  }
+  h1{
+    margin:0 0 6px; font-size: clamp(26px, 3.4vw, 40px); line-height:1.1;
+  }
+  .accent{color:var(--cyan); text-shadow:0 0 14px #06b6d455}
+  .subtitle{
+    margin:4px 0 0; color:var(--muted); font-size: clamp(14px,2.2vw,18px);
+  }
+  .typewriter{
+    display:inline-block; border-right:2px solid var(--cyan); padding-right:4px;
+    animation: blink 0.8s steps(1,end) infinite;
+    font-weight:700; color:var(--cyan);
+  }
+  @keyframes blink{50%{border-color:transparent}}
 
-/* Footer */
-footer { background: #333; color: white; text-align: center; padding: 10px; font-size: 0.9em; }
+  /* quick chips */
+  .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+  .chip{
+    background:var(--chip); color:#d1d5db; border:1px solid #334155;
+    font-size:12px; padding:6px 10px; border-radius:999px;
+  }
+
+  /* ===== Sections ===== */
+  section{padding: 26px 20px}
+  .container{max-width:1100px;margin:0 auto}
+
+  /* glass group */
+  .section-card{
+    background: linear-gradient(180deg, #0b122099, #0b122055);
+    border:1px solid #ffffff14; border-radius:20px; padding:18px;
+    box-shadow: 0 20px 60px #0007, inset 0 1px 0 #ffffff11;
+    backdrop-filter: blur(8px);
+    transform: translateY(6px); opacity:0; transition: all .8s ease;
+  }
+  .section-card.visible{transform:none; opacity:1}
+
+  .section-title{
+    margin:0 0 12px; letter-spacing:.08em;
+    font-weight:800; font-size: clamp(16px,2.6vw,18px);
+    color:#c7d2fe; display:flex; align-items:center; gap:10px;
+  }
+  .bar{height:2px; width:42px; background:linear-gradient(90deg,var(--cyan),var(--indigo)); border-radius:2px}
+
+  /* ===== Lists / Cards ===== */
+  .cards{display:grid; gap:14px; grid-template-columns: 1fr}
+  @media(min-width:720px){ .cards{grid-template-columns: repeat(2, 1fr)}}
+
+  .card{
+    background: var(--card);
+    border:1px solid #ffffff1a; border-radius:16px; padding:16px;
+    transition: transform .25s ease, border-color .25s ease, background .25s ease;
+  }
+  .card:hover{transform: translateY(-4px); border-color:#60a5fa55; background:#0b1220cc}
+  .card h3{margin:0 0 6px; font-size: clamp(15px,2.4vw,18px)}
+  .bullets{margin:8px 0 0; padding-left:18px; color:#cbd5e1}
+  .bullets li{margin:6px 0}
+  .tagline{color:#94a3b8; font-size:13px}
+
+  /* ===== CTA row ===== */
+  .cta-row{display:flex; flex-wrap:wrap; gap:12px; margin-top:12px}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:10px 14px; border-radius:12px; font-weight:700; text-decoration:none;
+    border:1px solid #22d3ee55; background: linear-gradient(180deg,#0ea5e94d,#0891b22a);
+    color:#e6fbff; box-shadow: 0 6px 25px #0891b233, inset 0 1px 0 #ffffff22;
+  }
+  .btn:hover{transform:translateY(-1px)}
+
+  /* ===== Contact ===== */
+  .contact-grid{display:grid; gap:12px; grid-template-columns: 1fr; margin-top:8px}
+  @media(min-width:680px){ .contact-grid{grid-template-columns: repeat(2,1fr)}}
+  .contact-card{display:flex; align-items:center; justify-content:space-between; gap:14px}
+  .contact-card .left{display:flex; align-items:center; gap:12px}
+  .icon{
+    width:36px;height:36px;border-radius:10px;display:grid;place-items:center;
+    background:linear-gradient(180deg,#1f2937,#111827); border:1px solid #ffffff22
+  }
+  .contact-link{
+    margin-left:auto; text-decoration:none; font-weight:700; color:#e2f3ff;
+    border:1px solid #3b82f666; padding:8px 12px; border-radius:10px;
+    background:linear-gradient(180deg,#1d4ed81f,#1e40af1a)
+  }
+  .contact-link:hover{border-color:#60a5fa}
+
+  /* ===== Footer ===== */
+  footer{
+    color:#9ca3af; font-size:12px; text-align:center; padding:22px 10px 34px;
+  }
+
 </style>
 </head>
 <body>
+<div class="bg-anim"></div>
 
 <header>
-    <img src="Image.jpg" alt="Profile Photo" class="portfolio-photo">
-    <h1>Kalaiselvan R</h1>
-    <div class="job-title" id="jobTitle">Mechanical Design Engineer</div>
-    <a href="https://drive.google.com/uc?export=view&id=1LNqFKEAw8jceq_daf_h1bGr6rB8mpFaz" class="resume-btn" target="_blank">📄 View Resume</a>
+  <div class="hero">
+    <img src="Image.jpg" alt="Kalaiselvan R" class="avatar"/>
+    <div>
+      <h1>
+        Hi, I'm <span class="accent">Kalaiselvan R</span>
+      </h1>
+      <div class="subtitle">
+        <span class="typewriter" id="typewriter"></span> • BE Mechanical • Design Engineer – Freelance
+      </div>
+      <div class="chips">
+        <span class="chip">Creo</span>
+        <span class="chip">AutoCAD</span>
+        <span class="chip">CATIA V5</span>
+        <span class="chip">NX</span>
+        <span class="chip">SolidWorks</span>
+      </div>
+      <div class="cta-row">
+        <a class="btn" href="design-files.html" target="_blank">View Designs</a>
+        <a class="btn" href="certificate.html" target="_blank">Certificates</a>
+        <a class="btn" href="mailto:mechkalai2004@gmail.com">Contact Me</a>
+        <a class="btn" href="https://drive.google.com/file/d/1LNqFKEAw8jceq_daf_h1bGr6rB8mpFaz/view" target="_blank">📄 View Resume</a>
+      </div>
+    </div>
+  </div>
 </header>
 
-<section>
-    <h2>Skills</h2>
-    <ul>
-        <li>Creo (Part, Assembly, Sheet Metal, Drafting)</li>
-        <li>AutoCAD (2D & Isometric)</li>
-        <li>CATIA V5 (Part, Assembly)</li>
-        <li>NX-Unigraphics (Part, Assembly, Surface)</li>
-        <li>SolidWorks (Part, Assembly, Drafting)</li>
-    </ul>
-</section>
-
-<section>
-    <h2>Internships</h2>
-    <ul>
-        <li><b>Pumo Technovation India Pvt Ltd</b> – Creo design, AutoCAD drafting, GD&T.</li>
-        <li><b>Macbro Technology Pvt Ltd</b> – CATIA V5 & NX design for industrial components.</li>
-    </ul>
-</section>
-
-<section>
-    <h2>Projects</h2>
-    <ul>
-        <li><b>Automotive Engine Components</b> – Designed cylinder block, crankshaft, camshaft in Creo; BOM & GD&T.</li>
-        <li><b>PLC Control Panel</b> – Designed enclosure in Creo with accurate hole placements & 2D drafting.</li>
-    </ul>
-</section>
-
-<section>
-    <h2>Design Files</h2>
-    <p><a href="design-files.html" target="_blank">📂 View Photos, Videos & PDFs</a></p>
-</section>
-
-<section>
-    <h2>Certificates</h2>
-    <p><a href="certificate.html" target="_blank">📜 View Certificates</a></p>
-</section>
-
-<section>
-    <h2>Contact</h2>
-    <div class="contact-links">
-        <a href="mailto:mechkalai2004@gmail.com">✉ Email</a>
-        <a href="https://www.linkedin.com/in/kalaiselvanr191120" target="_blank">🔗 LinkedIn</a>
-        <a href="https://github.com/kalaiselvan0604" target="_blank">💻 GitHub</a>
-        <a href="https://wa.me/8110925400" target="_blank">💬 WhatsApp</a>
+<main>
+  <section>
+    <div class="container section-card" data-animate>
+      <div class="section-title"><span class="bar"></span> SKILLS</div>
+      <div class="cards">
+        <div class="card">
+          <h3>CAD</h3>
+          <ul class="bullets">
+            <li><strong>Creo:</strong> Part, Assembly, Sheet Metal, Drafting</li>
+            <li><strong>AutoCAD:</strong> 2D & Isometric</li>
+            <li><strong>CATIA V5 / NX / SolidWorks:</strong> Part & Assembly</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Focus</h3>
+          <ul class="bullets">
+            <li>GD&T application in drawings</li>
+            <li>Manufacturability & BOM readiness</li>
+            <li>Clean drafting standards</li>
+          </ul>
+        </div>
+      </div>
     </div>
-</section>
+  </section>
+
+  <section>
+    <div class="container section-card" data-animate>
+      <div class="section-title"><span class="bar"></span> INTERNSHIPS</div>
+      <div class="cards">
+        <div class="card">
+          <h3>Pumo Technovation India Pvt Ltd — <span class="tagline">Feb 2025 – Present</span></h3>
+          <ul class="bullets">
+            <li>Creo: Part, Assembly, Sheet Metal, Drafting</li>
+            <li>AutoCAD: 2D & Isometric</li>
+            <li>Applied GD&T and standards</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Macbro Technology Pvt Ltd — <span class="tagline">Jul 2024 – Aug 2024</span></h3>
+          <ul class="bullets">
+            <li>CATIA V5: Part & Assembly</li>
+            <li>NX: Part, Assembly, Surface</li>
+            <li>Parametric design workflow</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container section-card" data-animate>
+      <div class="section-title"><span class="bar"></span> PROJECTS</div>
+      <div class="cards">
+        <div class="card">
+          <h3>Design & Development of Automotive Engine Components</h3>
+          <ul class="bullets">
+            <li>Creo models: cylinder block, crankshaft, camshaft</li>
+            <li>Assembly integration with GD&T</li>
+            <li>Exploded views & BOM for manufacturing</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Design & Drafting of PLC Control Panel</h3>
+          <ul class="bullets">
+            <li>Creo enclosure with precise hole placements</li>
+            <li>Clear 2D drafting sheets with GD&T</li>
+            <li>Manufacturing-ready documentation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container section-card contact" data-animate>
+      <div class="section-title"><span class="bar"></span> CONTACT</div>
+      <div class="contact-grid">
+        <div class="card contact-card">
+          <div class="left">
+            <div class="icon">✉️</div>
+            <div>
+              <div>Email</div>
+              <div class="tagline">mechkalai2004@gmail.com</div>
+            </div>
+          </div>
+          <a class="contact-link" href="mailto:mechkalai2004@gmail.com">Write</a>
+        </div>
+
+        <div class="card contact-card">
+          <div class="left">
+            <div class="icon">🔗</div>
+            <div>
+              <div>LinkedIn</div>
+              <div class="tagline">/in/kalaiselvanr191120</div>
+            </div>
+          </div>
+          <a class="contact-link" target="_blank" href="https://www.linkedin.com/in/kalaiselvanr191120">Visit</a>
+        </div>
+
+        <div class="card contact-card">
+          <div class="left">
+            <div class="icon">💻</div>
+            <div>
+              <div>GitHub</div>
+              <div class="tagline">/kalaiselvan0604</div>
+            </div>
+          </div>
+          <a class="contact-link" target="_blank" href="https://github.com/kalaiselvan0604">Open</a>
+        </div>
+
+        <div class="card contact-card">
+          <div class="left">
+            <div class="icon">💬</div>
+            <div>
+              <div>WhatsApp</div>
+              <div class="tagline">+91 81109 25400</div>
+            </div>
+          </div>
+          <a class="contact-link" target="_blank" href="https://wa.me/8110925400">Message</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
 
 <footer>
-    &copy; 2025 Kalaiselvan R | All Rights Reserved
+  © 2025 Kalaiselvan R • All Rights Reserved
 </footer>
 
 <script>
-// Job title refresh every 5 seconds
-setInterval(() => {
-    document.getElementById("jobTitle").style.opacity = 0;
-    setTimeout(() => {
-        document.getElementById("jobTitle").textContent = "Mechanical Design Engineer";
-        document.getElementById("jobTitle").style.opacity = 1;
-    }, 500);
-}, 5000);
+  /* Typewriter */
+  const roles = ["Freelance Design Engineer","CAD Specialist","Mechanical Designer"];
+  let i=0,j=0,cur="",el=document.getElementById("typewriter");
+  const speed=85, pause=1200;
+  (function type(){
+    if(j<roles[i].length){ cur+=roles[i][j++]; el.textContent=cur; return setTimeout(type,speed); }
+    setTimeout(erase,pause);
+  })();
+  function erase(){
+    if(j>0){ cur=cur.slice(0,-1); j--; el.textContent=cur; return setTimeout(erase,40); }
+    i=(i+1)%roles.length; setTimeout(()=>{type()},80);
+  }
+
+  /* Reveal on view */
+  const obs=new IntersectionObserver((es)=>es.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+  }),{threshold:0.25});
+  document.querySelectorAll('[data-animate]').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>

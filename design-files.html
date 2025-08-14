@@ -1,57 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Design Gallery - Photos, Videos & PDFs</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Design Gallery — Photos • Videos • PDFs</title>
 <style>
-    body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; }
-    header { background: #333; color: white; text-align: center; padding: 20px; }
-    main { padding: 20px; }
-    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
-    .item { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.2); padding: 10px; text-align: center; }
-    img, video { width: 100%; display: block; }
-    a.pdf-link { display: inline-block; padding: 8px 12px; margin-top: 8px; background: #3498db; color: white; border-radius: 5px; text-decoration: none; }
-    a.pdf-link:hover { background: #2980b9; }
+  :root{
+    --bg:#0f172a; --text:#e5e7eb; --muted:#9ca3af;
+    --accent:#22d3ee; --glass:#ffffff22;
+  }
+  body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#0b1220,#0f172a);color:var(--text)}
+  header{padding:22px;text-align:center;background:#0b1220cc;border-bottom:1px solid #ffffff14;backdrop-filter:blur(6px)}
+  h1{margin:0;font-size:clamp(20px,4.5vw,28px)}
+  .controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:12px 0 0}
+  .filter{
+    background:#0b1220; border:1px solid #334155; color:#e6fbff; padding:8px 12px; border-radius:999px;
+  }
+  .filter.active{border-color:#22d3ee88; box-shadow:0 0 0 2px #22d3ee22 inset}
+  main{padding:18px}
+  .grid{max-width:1200px;margin:0 auto;display:grid;gap:14px;grid-template-columns: repeat(auto-fit,minmax(240px,1fr))}
+  .card{background:#0b1220cc;border:1px solid #ffffff1a;border-radius:14px;overflow:hidden}
+  .thumb{width:100%;display:block;background:#0b1220}
+  .file-meta{padding:10px 12px;border-top:1px solid #ffffff14;display:flex;align-items:center;justify-content:space-between}
+  .name{font-size:13px;color:#cbd5e1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:80%}
+  .view{font-size:12px;text-decoration:none;color:#e6fbff;border:1px solid #22d3ee55;border-radius:10px;padding:6px 10px;background:linear-gradient(180deg,#0ea5e94d,#0891b22a)}
+  footer{color:#9ca3af;text-align:center;padding:18px}
 </style>
 </head>
 <body>
-<header><h1>My Design Files</h1></header>
+<header>
+  <h1>My Design Gallery</h1>
+  <div class="controls">
+    <button class="filter active" data-type="all">All</button>
+    <button class="filter" data-type="image">Photos</button>
+    <button class="filter" data-type="video">Videos</button>
+    <button class="filter" data-type="application/pdf">PDFs</button>
+  </div>
+</header>
+
 <main>
-    <div class="gallery" id="gallery"></div>
+  <div id="grid" class="grid"></div>
 </main>
-<footer style="background:#333;color:white;text-align:center;padding:10px;">&copy; 2025 Kalaiselvan R</footer>
+
+<footer>© 2025 Kalaiselvan R</footer>
 
 <script>
-const folderId = "1IgEieJrkxNrXDDfwGkqM8O-zz1trWBAY"; // Your folder ID
-const apiKey = "AIzaSyAhYxOiaiz363V7EZrU9O3lc5YURcwOx6o"; // Your API key
-const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&fields=files(id,name,mimeType)&key=${apiKey}`;
+const folderId = "1IgEieJrkxNrXDDfwGkqM8O-zz1trWBAY";
+const apiKey   = "AIzaSyAhYxOiaiz363V7EZrU9O3lc5YURcwOx6o";
+const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&orderBy=createdTime%20desc&fields=files(id,name,mimeType)&key=${apiKey}`;
 
-async function loadGallery() {
-    const res = await fetch(url);
-    const data = await res.json();
-    const gallery = document.getElementById("gallery");
-    gallery.innerHTML = "";
-    data.files.forEach(file => {
-        if (file.mimeType.startsWith("image/") || file.mimeType.startsWith("video/") || file.mimeType === "application/pdf") {
-            const div = document.createElement("div");
-            div.className = "item";
+let files=[];
+const grid=document.getElementById('grid');
 
-            if (file.mimeType.startsWith("image/")) {
-                div.innerHTML = `<img src="https://drive.google.com/uc?id=${file.id}" alt="${file.name}">`;
-            } 
-            else if (file.mimeType.startsWith("video/")) {
-                div.innerHTML = `<video controls><source src="https://drive.google.com/uc?id=${file.id}" type="${file.mimeType}"></video>`;
-            } 
-            else if (file.mimeType === "application/pdf") {
-                div.innerHTML = `<p><strong>${file.name}</strong></p><a class="pdf-link" href="https://drive.google.com/file/d/${file.id}/view" target="_blank">📄 View PDF</a>`;
-            }
-
-            gallery.appendChild(div);
-        }
-    });
+function render(type='all'){
+  grid.innerHTML='';
+  files.filter(f=>{
+    if(type==='all') return f;
+    if(type==='image') return f.mimeType.startsWith('image/');
+    if(type==='video') return f.mimeType.startsWith('video/');
+    return f.mimeType===type; // pdf
+  }).forEach(file=>{
+    const card=document.createElement('div'); card.className='card';
+    if(file.mimeType.startsWith('image/')){
+      card.innerHTML=`
+        <img class="thumb" src="https://drive.google.com/uc?id=${file.id}" alt="${file.name}">
+        <div class="file-meta"><span class="name">${file.name}</span>
+        <a class="view" target="_blank" href="https://drive.google.com/file/d/${file.id}/view">Open</a></div>`;
+    } else if(file.mimeType.startsWith('video/')){
+      card.innerHTML=`
+        <video class="thumb" muted playsinline controls preload="metadata"
+               onmouseenter="this.play()" onmouseleave="this.pause()">
+          <source src="https://drive.google.com/uc?id=${file.id}" type="${file.mimeType}">
+        </video>
+        <div class="file-meta"><span class="name">${file.name}</span>
+        <a class="view" target="_blank" href="https://drive.google.com/file/d/${file.id}/view">Open</a></div>`;
+    } else if(file.mimeType==='application/pdf'){
+      card.innerHTML=`
+        <iframe class="thumb" src="https://drive.google.com/file/d/${file.id}/preview" height="260"></iframe>
+        <div class="file-meta"><span class="name">${file.name}</span>
+        <a class="view" target="_blank" href="https://drive.google.com/file/d/${file.id}/view">View PDF</a></div>`;
+    }
+    grid.appendChild(card);
+  })
 }
-loadGallery();
+
+async function load(){
+  try{
+    const res=await fetch(url);
+    const data=await res.json();
+    files=(data.files||[]).filter(f=>
+      f.mimeType.startsWith('image/') ||
+      f.mimeType.startsWith('video/') ||
+      f.mimeType==='application/pdf'
+    );
+    render('all');
+  }catch(e){
+    grid.innerHTML='<div style="opacity:.8">Unable to load files right now.</div>';
+    console.error(e);
+  }
+}
+load();
+
+/* filters */
+document.querySelectorAll('.filter').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    render(btn.dataset.type);
+  })
+});
 </script>
 </body>
 </html>
